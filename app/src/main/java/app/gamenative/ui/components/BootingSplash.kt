@@ -23,6 +23,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import app.gamenative.R
 import app.gamenative.ui.theme.PluviaTheme
 import app.gamenative.ui.theme.BrandGradient
 import kotlin.math.sin
@@ -41,42 +44,15 @@ import kotlinx.coroutines.delay
 @Composable
 fun BootingSplash(
     visible: Boolean = true,
-    text: String = "Initializing...",
+    text: String = stringResource(R.string.boot_splash_initializing),
     progress: Float = -1f, // -1 for indeterminate, 0-1 for determinate
 ) {
     // Tips rotation (no animation cost, safe outside visibility check)
-    val tips = remember {
-        listOf(
-            "Booting may take a few minutes on first launch",
-            "Tip: You can view the game files by pressing \"Open Container\" in the game settings.",
-            "Tip: You can go to the main settings menu and download custom drivers for your device to be used on Bionic.",
-            "Tip: If you are getting a DirectX error, make sure you are using DXVK 1.10.3-async and leegao-wrapper on Bionic.",
-            "Tip: Try the Direct3D test in the Start Menu after clicking Open Container to check if your device is working correctly.",
-            "Tip: Use DXVK for DirectX 8/9/10/11 games, VKD3D for DirectX 12 games and VirGL + WineD3D for OpenGL games.",
-            "Tip: Use Turnip on glibc or bionic to play DirectX 12 games. DirectX 12 support for devices that don't support Turnip is currently limited.",
-            "Tip: Try the Adreno or Snapdragon 8 Elite drivers on glibc if you are on a compatible device.",
-            "Tip: If you are getting a black screen when launching a game, try Open Container and launching the game from A: drive.",
-            "Tip: You can add different locations for Custom Games in the settings.",
-            "Tip: Use the quick menu performance HUD when you want FPS stats in-game.",
-            "Tip: Install packages in A:\\_CommonRedist if your game doesn't launch.",
-            "Tip: You can enable or disable the onscreen controller with your device's back key.",
-            "Tip: You can bring up the keyboard with your device's back key.",
-            "Tip: You can tap with two fingers inside the container to right click.",
-            "Tip: If you are using the onscreen controller, you can disable the mouse to prevent accidental touches.",
-            "Tip: Report issues on Discord so we can fix them.",
-            "Tip: Use the Vortek driver in glibc or wrapper-leegao in Bionic if you are on a non-Adreno GPU.",
-            "Tip: Lower resolution and use box64 in performance mode to boost FPS.",
-            "Tip: If the game is crashing after loading, increase the video memory.",
-            "Tip: If you are seeing visual glitches, disable DRI3.",
-            "Tip: You can enable touchscreen mode.",
-            "Tip: If you have a Mali GPU, please use System Drivers.",
-            "Tip: Getting a blank screen? Try using the Test Graphics option in the menu to check if your drivers are working correctly.",
-        )
-    }
+    val tips = stringArrayResource(R.array.boot_splash_tips)
 
     var tipIndex by remember { mutableStateOf(if (tips.isNotEmpty()) Random.nextInt(tips.size) else 0) }
 
-    LaunchedEffect(visible, tips) {
+    LaunchedEffect(visible) {
         while (visible && tips.isNotEmpty()) {
             delay(8000)
             tipIndex = (tipIndex + 1) % tips.size
@@ -159,9 +135,11 @@ fun BootingSplash(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier.scale(logoScale),
                 ) {
+                    val appName = stringResource(R.string.app_name)
+
                     // Glow layer (blurred behind)
                     Text(
-                        text = "GameNative",
+                        text = appName,
                         style = MaterialTheme.typography.displaySmall.copy(
                             fontWeight = FontWeight.Bold,
                             fontSize = 36.sp,
@@ -175,7 +153,7 @@ fun BootingSplash(
 
                     // Main logo text
                     Text(
-                        text = "GameNative",
+                        text = appName,
                         style = MaterialTheme.typography.displaySmall.copy(
                             fontWeight = FontWeight.Bold,
                             fontSize = 36.sp,

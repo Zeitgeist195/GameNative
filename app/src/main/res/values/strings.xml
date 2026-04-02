@@ -960,6 +960,35 @@
     <string name="settings_text">Settings</string>
 
 
+    <!-- Booting Splash -->
+    <string name="boot_splash_initializing">Initializing…</string>
+    <string-array name="boot_splash_tips">
+        <item>Booting may take a few minutes on first launch</item>
+        <item>Tip: You can view the game files by pressing \"Open Container\" in the game settings.</item>
+        <item>Tip: You can go to the main settings menu and download custom drivers for your device to be used on Bionic.</item>
+        <item>Tip: If you are getting a DirectX error, make sure you are using DXVK 1.10.3-async and leegao-wrapper on Bionic.</item>
+        <item>Tip: Try the Direct3D test in the Start Menu after clicking Open Container to check if your device is working correctly.</item>
+        <item>Tip: Use DXVK for DirectX 8/9/10/11 games, VKD3D for DirectX 12 games and VirGL + WineD3D for OpenGL games.</item>
+        <item>Tip: Use Turnip on glibc or bionic to play DirectX 12 games. DirectX 12 support for devices that don\'t support Turnip is currently limited.</item>
+        <item>Tip: Try the Adreno or Snapdragon 8 Elite drivers on glibc if you are on a compatible device.</item>
+        <item>Tip: If you are getting a black screen when launching a game, try Open Container and launching the game from A: drive.</item>
+        <item>Tip: You can add different locations for Custom Games in the settings.</item>
+        <item>Tip: Use the quick menu performance HUD when you want FPS stats in-game.</item>
+        <item>Tip: Install packages in A:\\_CommonRedist if your game doesn\'t launch.</item>
+        <item>Tip: You can enable or disable the onscreen controller with your device\'s back key.</item>
+        <item>Tip: You can bring up the keyboard with your device\'s back key.</item>
+        <item>Tip: You can tap with two fingers inside the container to right click.</item>
+        <item>Tip: If you are using the onscreen controller, you can disable the mouse to prevent accidental touches.</item>
+        <item>Tip: Report issues on Discord so we can fix them.</item>
+        <item>Tip: Use the Vortek driver in glibc or wrapper-leegao in Bionic if you are on a non-Adreno GPU.</item>
+        <item>Tip: Lower resolution and use box64 in performance mode to boost FPS.</item>
+        <item>Tip: If the game is crashing after loading, increase the video memory.</item>
+        <item>Tip: If you are seeing visual glitches, disable DRI3.</item>
+        <item>Tip: You can enable touchscreen mode.</item>
+        <item>Tip: If you have a Mali GPU, please use System Drivers.</item>
+        <item>Tip: Getting a blank screen? Try using the Test Graphics option in the menu to check if your drivers are working correctly.</item>
+    </string-array>
+
     <!-- Connecting to Servers Screen -->
     <string name="connect_to_remote_server">Connecting to remote servers...</string>
 
