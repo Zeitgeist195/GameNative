@@ -567,7 +567,7 @@ internal fun AppScreenContent(
             val secondsPart = totalSeconds % 60
             "${minutesLeft}m ${secondsPart}s left"
         } else if (isDownloading && downloadProgress >= 1f) {
-            "Unpacking..."
+            downloadStatusMessage?.takeUnless { it.isBlank() } ?: stringResource(R.string.phase_finalizing)
         } else if (downloadProgress in 0f..1f && downloadProgress < 1f) {
             downloadStatusMessage?.takeUnless { it.isBlank() } ?: ""
         } else {
@@ -975,8 +975,14 @@ internal fun AppScreenContent(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
+                    val isEpicOrGog = displayInfo.appId.startsWith("EPIC_") ||
+                        displayInfo.appId.startsWith("GOG_")
                     val statusText = when {
                         isInstalled -> stringResource(R.string.installed)
+                        isDownloading && isEpicOrGog -> stringResource(
+                            if (downloadInfo?.isAssemblyPhase() == true) R.string.installing
+                            else R.string.phase_downloading,
+                        )
                         isDownloading -> stringResource(R.string.installing)
                         else -> stringResource(R.string.not_installed)
                     }

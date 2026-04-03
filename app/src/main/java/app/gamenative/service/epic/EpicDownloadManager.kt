@@ -266,6 +266,11 @@ class EpicDownloadManager @Inject constructor(
                 Timber.tag("Epic").d("Download progress: $downloadedChunks/$totalChunks chunks (${(progress * 100).toInt()}%)")
             }
 
+            // Restart progress for the assembly phase: clear byte-based tracking so
+            // getProgress() uses the explicit setProgress() values instead.
+            downloadInfo.setTotalExpectedBytes(0)
+            downloadInfo.setProgress(0f)
+            downloadInfo.setAssemblyPhase(true)
             downloadInfo.updateStatusMessage("Assembling files...")
 
             // Assemble files from chunks in parallel batches
@@ -292,7 +297,9 @@ class EpicDownloadManager @Inject constructor(
 
                 assembledFiles += fileBatch.size
                 val assemblyProgress = assembledFiles.toFloat() / totalFiles
+                downloadInfo.setProgress(assemblyProgress)
                 downloadInfo.updateStatusMessage("Assembling files ($assembledFiles/$totalFiles)")
+                downloadInfo.emitProgressChange()
                 Timber.tag("Epic").d("File assembly progress: $assembledFiles/$totalFiles (${(assemblyProgress * 100).toInt()}%)")
             }
 

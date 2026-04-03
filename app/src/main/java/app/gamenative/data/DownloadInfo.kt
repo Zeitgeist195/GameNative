@@ -32,6 +32,7 @@ data class DownloadInfo(
     private var emaSpeedBytesPerSec: Double = 0.0
     private var hasEmaSpeed: Boolean = false
     private var isActive: Boolean = true
+    private var assemblyPhase: Boolean = false
     private val statusMessage = MutableStateFlow<String?>(null)
 
     fun cancel() {
@@ -166,6 +167,12 @@ data class DownloadInfo(
     }
 
     fun isActive(): Boolean = isActive
+
+    /** Marks whether the download is currently in the file-assembly phase. */
+    fun setAssemblyPhase(active: Boolean) { assemblyPhase = active }
+
+    /** Returns true while the download managers are assembling files from chunks. */
+    fun isAssemblyPhase(): Boolean = assemblyPhase
 
     /**
      * Returns the total expected bytes for the download.

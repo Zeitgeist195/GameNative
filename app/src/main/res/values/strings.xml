@@ -556,6 +556,8 @@
     <string name="installed">Installed</string>
     <string name="installing">Installing</string>
     <string name="not_installed">Not Installed</string>
+    <string name="phase_downloading">Downloading</string>
+    <string name="phase_finalizing">Finalizing...</string>
     <string name="open">Open</string>
     <string name="family_shared">Family Shared</string>
     <string name="games">Games</string>

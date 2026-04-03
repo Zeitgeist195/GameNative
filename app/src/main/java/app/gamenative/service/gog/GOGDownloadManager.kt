@@ -399,6 +399,11 @@ class GOGDownloadManager @Inject constructor(
             }
 
             // Step 9: Assemble game files
+            // Restart progress for the assembly phase: clear byte-based tracking so
+            // getProgress() uses the explicit setProgress() values instead.
+            downloadInfo.setTotalExpectedBytes(0)
+            downloadInfo.setProgress(0f)
+            downloadInfo.setAssemblyPhase(true)
             downloadInfo.updateStatusMessage("Assembling files...")
 
             // Use installPath directly since it already includes the game-specific folder
@@ -1267,7 +1272,12 @@ class GOGDownloadManager @Inject constructor(
                     return@withContext Result.failure(Exception("Download cancelled"))
                 }
 
-                downloadInfo.updateStatusMessage("Assembling ${index + 1}/$totalFiles: ${file.path}")
+                val assembled = index + 1
+                downloadInfo.updateStatusMessage("Assembling $assembled/$totalFiles: ${file.path}")
+
+                val assemblyProgress = assembled.toFloat() / totalFiles
+                downloadInfo.setProgress(assemblyProgress)
+                downloadInfo.emitProgressChange()
 
                 val assembleResult = assembleFile(file, chunkCacheDir, installDir)
                 if (assembleResult.isFailure) {
